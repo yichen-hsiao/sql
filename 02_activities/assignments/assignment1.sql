@@ -154,10 +154,17 @@ INSERT INTO new_vendor
 VALUES(10,'Thomass Superfood Store','Fresh Focused','Thomas','Rosenthal');
 
 
-/* A strange execution result was observed:
-- If a comment line is added above 'CREATE TABLE temp.new_vendor AS', the temp table CANNOT be created successfully.
-- If the comment is added after 'CREATE TABLE temp.new_vendor AS', the temp table is created successfully.
-Although the comment line shouldn't impact query execution, this is exactly what I experienced. */
+/* encountered an unexpected issue when creating a temporary table:
+
+- If a comment line was placed above the 'CREATE TABLE temp.new_vendor AS' statement and selected during execution, 
+  the temporary table failed to be created.
+
+- However, if the comment was placed on the same line, after the 'CREATE TABLE temp.new_vendor AS' statement, 
+  the table was created successfully.
+
+Although comments are typically ignored during query execution and shouldn't affect the outcome, 
+this behavior was consistently reproducible in my environment. 
+It was a subtle but puzzling quirk that I worked around by adjusting the comment placement. */
 
 -- Date
 /*1. Get the customer_id, month, and year (in separate columns) of every purchase in the customer_purchases table.
