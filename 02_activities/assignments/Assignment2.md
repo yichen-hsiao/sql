@@ -54,7 +54,66 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
 ```
-Your answer...
+==========================================
+Answer of Section 1 - Prompt 3:
+
+Completed by: Yi-Chen Hsiao
+==========================================
+
+The two types of architectures, SCD Type 1 and SCD Type 2, are differentiated by how they handle changes to customer address data:
+
+#### SDC Type 1:
+
+This approach only keeps the latest data. When a customer's address is updated, the previous address is overwritten. There is no way to retrieve historical address information or revert to earlier versions.
+
+#### SDC Type 2:
+
+This approach retains historical data by inserting a new row for each address change. The original address remains in the table, allowing full tracking of address history. To support this, the schema includes additional columns such as timestamps and status indicators (e.g. active/inactive).
+
+#### SDC Type 1 vs. Type 2:
+
+    (1) Table Schema:
+
+    |                     |          Type 1          |           Type 2              |
+    |---------------------|--------------------------|-------------------------------|
+    | Primary key         | customer_id              | Surrogate key (address_id)    | 
+    |                     |                          | or composite key              |
+    |---------------------|--------------------------|-------------------------------|
+    | Address Attribute   | Street, city, state,     | Same as Type 1                |
+    |                     | ZipCode, Country         |                               |
+    |---------------------|--------------------------|-------------------------------|
+    | Change Tracking     | (Optional)               | start_date, end_date          |
+    |                     | last_updated timestamp   | is_active_flag                |
+
+    (2) Data Modeling Strategy
+
+    |                             |          Type 1       |         Type 2           |
+    |-----------------------------|-----------------------|--------------------------|
+    | Method of Change Handling   | Overwrite             | Append                   | 
+    |-----------------------------|-----------------------|--------------------------|
+    | New Rows for Address Change | No                    | Yes                      |
+    |-----------------------------|-----------------------|--------------------------|
+    | Retain Historical Data      | No                    | Yes                      |
+
+    (3) Business Implications in Bookstore Scenario:
+
+
+    |            |             Type 1             |              Type 2              |
+    |------------|--------------------------------|----------------------------------|
+    | Pros       | - Simple and efficient         | - Retained historical data can   | 
+    |            | - Requires less storage space  |   support customer service, such |
+    |            |                                |   as resolving delivery issues   |
+    |            |                                |   and enhancing analytics        |
+    |------------|--------------------------------|----------------------------------|
+    | Cons       | - Cannot track address         | - Requires more columns and      | 
+    |            |   changes, which may impact    |   greater storage space          |
+    |            |   customer service performance | - Involves more complex queries  |
+    |            | - May lead to biased           |   for managing and retrieving    |
+    |            |   analytical results when      |   data                           |
+    |            |   customer location is involved|                                  |
+
+
+
 ```
 
 ***
