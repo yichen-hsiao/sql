@@ -60,17 +60,21 @@ Answer of Section 1 - Prompt 3:
 Completed by: Yi-Chen Hsiao
 ==========================================
 
-The two types of architectures, SCD Type 1 and SCD Type 2, are differentiated by how they handle changes to customer address data:
+The two types of architectures, SCD Type 1 and SCD Type 2, are differentiated by how they handle changes 
+to customer address data:
 
-#### SDC Type 1:
+■ SDC Type 1:
 
-This approach only keeps the latest data. When a customer's address is updated, the previous address is overwritten. There is no way to retrieve historical address information or revert to earlier versions.
+This approach only keeps the latest data. When a customer's address is updated, the previous address is 
+overwritten. There is no way to retrieve historical address information or revert to earlier versions.
 
-#### SDC Type 2:
+■ SDC Type 2:
 
-This approach retains historical data by inserting a new row for each address change. The original address remains in the table, allowing full tracking of address history. To support this, the schema includes additional columns such as timestamps and status indicators (e.g. active/inactive).
+This approach retains historical data by inserting a new row for each address change. The original address 
+remains in the table, allowing full tracking of address history. To support this, the schema includes 
+additional columns such as timestamps and status indicators (e.g. active/inactive).
 
-#### SDC Type 1 vs. Type 2:
+■ SDC Type 1 vs. Type 2:
 
     (1) Table Schema:
 
